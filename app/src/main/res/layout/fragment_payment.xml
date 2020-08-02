@@ -40,6 +40,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-condensed-medium"
         android:text="Payment"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,6 +65,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-condensed-medium"
         android:text="Delivery"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,6 +80,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-condensed-medium"
         android:text="Order"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,17 +104,14 @@
 
             <ImageView
                 android:id="@+id/imageView20"
-                android:layout_width="50dp
-"
-                android:layout_height="0dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
-                android:src="@drawable/piza"
+                android:src="@drawable/paytmlogo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/paytmlogo"
-                tools:src="@drawable/paytmlogo" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/payment_paytm"
@@ -149,12 +149,11 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
-                android:src="@drawable/piza"
+                android:src="@drawable/paytmlogo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/paytmlogo"
-                tools:src="@drawable/paytmlogo" />
+                app:srcCompat="@drawable/paytmlogo" />
 
             <TextView
                 android:id="@+id/payment_card"
@@ -190,7 +189,7 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
-                android:src="@drawable/piza"
+                android:src="@drawable/paytmlogo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -309,7 +308,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
                 android:contentDescription="TODO"
-                android:src="@drawable/piza"
+                android:src="@drawable/paytmlogo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -354,7 +353,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
                 android:contentDescription="TODO"
-                android:src="@drawable/piza"
+                android:src="@drawable/paytmlogo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -377,5 +376,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

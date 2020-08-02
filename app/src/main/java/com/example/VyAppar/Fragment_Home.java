@@ -1,8 +1,10 @@
 package com.example.VyAppar;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -13,21 +15,26 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 public class Fragment_Home extends Fragment {
 
     public RecyclerView l1,l2,l3;
-    public ImageView iwPromo;
+    public ImageView iwPromo,cart;
     RecyclerView.Adapter adapter1,adapter2,adapter3;
     RecyclerView.LayoutManager layoutManager2,layoutManager3,layoutManager1;
     View view;
-    Toolbar toolbar;
+    TextView tvAddress;
     BottomNavigationView bnw;
+    BottomSheetDialog dialogadd;
 
     public Fragment_Home() {
         // Required empty public constructor
@@ -44,6 +51,7 @@ public class Fragment_Home extends Fragment {
         l1=view.findViewById(R.id.lw1);
         l2=view.findViewById(R.id.lw2);
         l3=view.findViewById(R.id.lw3);
+        dialogadd=new BottomSheetDialog(getContext());
         l1.setHasFixedSize(true);
         l2.setHasFixedSize(true);
         l3.setHasFixedSize(true);
@@ -60,25 +68,85 @@ public class Fragment_Home extends Fragment {
         l3.setAdapter(adapter3);
         l3.setLayoutManager(layoutManager3);
 
-        toolbar= view.findViewById(R.id.toolbarhome);
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_location_on_24);
-        toolbar.inflateMenu(R.menu.menu_toolbar);
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        dialogadd.setContentView(R.layout.dialog_address);
+        setupaddress();
+        dialogadd.setCanceledOnTouchOutside(true);
+
+        tvAddress=view.findViewById(R.id.addresshome);
+        tvAddress.setText(setaddress());
+        tvAddress.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId()==R.id.cart)
-                {
-                    getActivity().getSupportFragmentManager().beginTransaction().add(R.id.main_frame,new Fragment_Cart()).commit();
-                    bnw=getActivity().findViewById(R.id.bottomnw);
-                    bnw.setSelectedItemId(R.id.cartbottom);
-                }
-                return false;
+            public void onClick(View view) {
+                dialogadd.show();
+            }
+        });
+
+        dialogadd.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                tvAddress.setText(setaddress());
+            }
+        });
+        cart=view.findViewById(R.id.carthome);
+        cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().add(R.id.main_frame,new Fragment_Cart()).commit();
+                bnw=getActivity().findViewById(R.id.bottomnw);
+                bnw.setSelectedItemId(R.id.cartbottom);
+            }
+        });
+
+    }
+
+    private void setupaddress() {
+        RecyclerView l= dialogadd.findViewById(R.id.chooseaddress);
+        final Adapter_Address adapter=new Adapter_Address(getContext(),APPLICATION_CLASS.ADDRESSES);
+        LinearLayoutManager lm=new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
+        l.setAdapter(adapter);
+        l.setLayoutManager(lm);
+        FloatingActionButton btn= dialogadd.findViewById(R.id.btnaddaddress);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final androidx.appcompat.app.AlertDialog.Builder dialoguebuilder= new AlertDialog.Builder(getContext());
+                dialoguebuilder.setTitle("Add Address");
+                final EditText tempadr=new EditText(getContext());
+                tempadr.setText("");
+                dialoguebuilder.setView(tempadr);
+                dialoguebuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        APPLICATION_CLASS.ADDRESSES.add(new Class_Address(tempadr.getText().toString(),0));
+                        adapter.notifyDataSetChanged();
+                    }
+
+                });
+                dialoguebuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+                dialoguebuilder.show();
+
             }
         });
 
 
+
     }
 
+    private String setaddress()
+    {
+        for(Class_Address temp:APPLICATION_CLASS.ADDRESSES)
+        {
+            if(temp.getCurrent()==1)
+            {
+                return(temp.getAddress());
+            }
+        }
+        return ("");
+    };
 
 
     @Override

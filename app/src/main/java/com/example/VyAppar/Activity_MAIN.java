@@ -12,6 +12,7 @@ import androidx.preference.PreferenceViewHolder;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import androidx.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -66,7 +67,7 @@ public class Activity_MAIN extends AppCompatActivity implements Adapter_Home_Top
                             SetFragment(new Fragment_Cart());
                             break;
                         case (R.id.profilebottom):
-                            SetFragment(new Fragment_Settings_Preference());
+                            SetFragment(new Fragment_Settings());
                             break;
 
 
