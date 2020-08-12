@@ -1,5 +1,6 @@
 package com.example.VyAppar;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 
@@ -24,8 +30,12 @@ public class Fragment_Search extends Fragment {
     View view;
     Adapter_Search adapter;
     LinearLayoutManager linearLayoutManager;
-    RecyclerView l1;
+    RecyclerView l1,l2;
     SearchView sw;
+    Chip chiprice,chipcat;
+    BottomSheetDialog dialogadd;
+    TextView head;
+
 
 
 
@@ -40,6 +50,10 @@ public class Fragment_Search extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         l1=view.findViewById(R.id.l1);
+        chipcat=view.findViewById(R.id.chipcat);
+        chiprice=view.findViewById(R.id.chipprice);
+        chipcat.setText(setCat());
+        chiprice.setText(setPrice());
         l1.setHasFixedSize(true);
         adapter=new Adapter_Search(this.getActivity(),APPLICATION_CLASS.searchresults);
         linearLayoutManager=new LinearLayoutManager(this.getActivity(),RecyclerView.VERTICAL,false);
@@ -60,6 +74,53 @@ public class Fragment_Search extends Fragment {
             }
         });
 
+        chipcat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialogadd=new BottomSheetDialog(getContext());
+                dialogadd.setContentView(R.layout.dialog_search_chip);
+                dialogadd.setCanceledOnTouchOutside(true);
+                head=dialogadd.findViewById(R.id.head);
+                head.setText("SELECT CATEGORY");
+                l2=dialogadd.findViewById(R.id.choose);
+                RecyclerView.LayoutManager templ=new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
+                RecyclerView.Adapter tempadapt= new Adapter_Chips(getContext(),APPLICATION_CLASS.CATEGORIES);
+                l2.setLayoutManager(templ);
+                l2.setAdapter(tempadapt);
+                dialogadd.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        chipcat.setText(setCat());
+                    }
+                });
+                dialogadd.show();
+            }
+        });
+
+        chiprice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialogadd=new BottomSheetDialog(getContext());
+                dialogadd.setContentView(R.layout.dialog_search_chip);
+                dialogadd.setCanceledOnTouchOutside(true);
+                head=dialogadd.findViewById(R.id.head);
+                head.setText("SORT BY PRICE");
+                l2=dialogadd.findViewById(R.id.choose);
+                RecyclerView.LayoutManager templ=new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
+                RecyclerView.Adapter tempadapt= new Adapter_Chips(getContext(),APPLICATION_CLASS.PRICES);
+                l2.setLayoutManager(templ);
+                l2.setAdapter(tempadapt);
+                dialogadd.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        chiprice.setText(setPrice());
+                    }
+                });
+                dialogadd.show();
+            }
+        });
     }
 
     @Override
@@ -72,6 +133,30 @@ public class Fragment_Search extends Fragment {
 
 
     }
+
+    private String setCat()
+    {
+        for(Class_Chips temp:APPLICATION_CLASS.CATEGORIES)
+        {
+            if(temp.getCurrent()==1)
+            {
+                return(temp.getItem());
+            }
+        }
+        return ("");
+    };
+
+    private String setPrice()
+    {
+        for(Class_Chips temp:APPLICATION_CLASS.PRICES)
+        {
+            if(temp.getCurrent()==1)
+            {
+                return(temp.getItem());
+            }
+        }
+        return ("");
+    };
 
 
 }

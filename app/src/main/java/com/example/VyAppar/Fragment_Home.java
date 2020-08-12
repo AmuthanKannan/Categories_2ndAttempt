@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.Constraints;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,8 +16,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -105,7 +109,7 @@ public class Fragment_Home extends Fragment {
         LinearLayoutManager lm=new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
         l.setAdapter(adapter);
         l.setLayoutManager(lm);
-        FloatingActionButton btn= dialogadd.findViewById(R.id.btnaddaddress);
+        Button btn= dialogadd.findViewById(R.id.btnaddaddress);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,7 +117,15 @@ public class Fragment_Home extends Fragment {
                 dialoguebuilder.setTitle("Add Address");
                 final EditText tempadr=new EditText(getContext());
                 tempadr.setText("");
-                dialoguebuilder.setView(tempadr);
+
+                FrameLayout container = new FrameLayout(getContext());
+                FrameLayout.LayoutParams params = new  FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.leftMargin = 50;
+                params.rightMargin=50;
+                tempadr.setLayoutParams(params);
+                container.addView(tempadr);
+
+                dialoguebuilder.setView(container);
                 dialoguebuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

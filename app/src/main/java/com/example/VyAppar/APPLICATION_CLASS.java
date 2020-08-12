@@ -8,7 +8,8 @@ public class APPLICATION_CLASS extends Application {
     public static ArrayList<Class_Cart> cart;
     public static ArrayList<Class_Home_Category> top,bottom;
     public static ArrayList<Class_Search_Categories> searchresults;
-    public static String TOTAL_PRICE, TOTAL_QUANTITY,ADDRESS,NAME;
+    public static String TOTAL_PRICE, TOTAL_QUANTITY,ADDRESS,NAME,SEARCHCAT,SEARCHPRICE;
+    public static ArrayList<Class_Chips> CATEGORIES,PRICES;
     public static ArrayList<Class_Address> ADDRESSES;
 
 
@@ -21,6 +22,10 @@ public class APPLICATION_CLASS extends Application {
         bottom=new ArrayList<Class_Home_Category>();
         searchresults=new ArrayList<Class_Search_Categories>();
         ADDRESSES=new ArrayList<Class_Address>();
+        CATEGORIES=new ArrayList<Class_Chips>();
+        PRICES=new ArrayList<Class_Chips>();
+        SEARCHCAT="";
+        SEARCHPRICE="";
 
         // HOME PAGE DATA
         top.add(new Class_Home_Category("Food", R.drawable.foodplaceholder));
@@ -49,9 +54,19 @@ public class APPLICATION_CLASS extends Application {
         //CART DATA
 
         //ADDRESSES
-        ADDRESSES.add(new Class_Address("501 regalia adyar",1));
-        ADDRESSES.add(new Class_Address("265 Cauvery",0));
-        ADDRESSES.add(new Class_Address("269 Saras",0));
+        ADDRESSES.add(new Class_Address("501 Regalia Adyar",1));
+
+        //CATEGORIES
+        CATEGORIES.add(new Class_Chips("FOOD",1));
+        CATEGORIES.add(new Class_Chips("FASHION",0));
+        CATEGORIES.add(new Class_Chips("TUITION",0));
+        CATEGORIES.add(new Class_Chips("GROCERY",0));
+        CATEGORIES.add(new Class_Chips("FREELANCE",0));
+
+        //PRICES
+        PRICES.add(new Class_Chips("HIGH TO LOW",0));
+        PRICES.add(new Class_Chips("LOW TO HIGH",1));
+
 
     }
 }
