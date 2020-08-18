@@ -115,7 +115,8 @@ public class Fragment_Search extends Fragment {
                 dialogadd.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
-                        chiprice.setText(setPrice());
+                        chiprice
+                                .setText(setPrice());
                     }
                 });
                 dialogadd.show();
